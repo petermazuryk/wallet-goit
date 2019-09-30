@@ -5,12 +5,13 @@ const updateUser = async (req, res) => {
   const updatedData = req.body;
 
   try {
-    const updatedUser = await UsersModel.findByIdAndUpdate(userId, { $push: updatedData });
-    // const findUser = await UsersModel.find({ _id: userId });
+    const updateUser = await UsersModel.findByIdAndUpdate(userId, { $push: updatedData });
+
     res.json({
-        status: success, 
-        product: updatedUser
+      status: "OK",
+      user: updateUser
     })
+    
   } catch (error) {
     res.status(400).json({
       status: "BAD",

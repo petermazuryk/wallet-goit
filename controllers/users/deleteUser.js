@@ -1,16 +1,15 @@
 const UsersModel = require('../../models/user.model.js');
 
-const getUserById = async (req, res) => {
+const deleteUser = async (req, res) => {
   const userId = req.params.userId;
 
   try {
-    const findUser = await UsersModel.findById(userId, {'__v': 0 });
-
+    const deletedUser = await UsersModel.findByIdAndDelete(userId);
     res.json({
       status: "OK",
-      user: findUser
+      deletedUser: deletedUser
     })
-    
+
   } catch (error) {
     res.status(400).json({
       status: "BAD",
@@ -20,4 +19,4 @@ const getUserById = async (req, res) => {
   }
 };
 
-module.exports = getUserById;
+module.exports = deleteUser;

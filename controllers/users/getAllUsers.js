@@ -1,16 +1,15 @@
 const UsersModel = require('../../models/user.model.js');
 
-const getUserById = async (req, res) => {
-  const userId = req.params.userId;
+const getAllUsers = async (req, res) => {
 
   try {
-    const findUser = await UsersModel.findById(userId, {'__v': 0 });
-
+    const findUser = await UsersModel.find({}, {'__v': 0 });
+    
     res.json({
       status: "OK",
-      user: findUser
+      users: findUser
     })
-    
+
   } catch (error) {
     res.status(400).json({
       status: "BAD",
@@ -20,4 +19,4 @@ const getUserById = async (req, res) => {
   }
 };
 
-module.exports = getUserById;
+module.exports = getAllUsers;
