@@ -1,6 +1,6 @@
 const Joi = require("joi");
-const Transactions = require("../../models/transactions.model.js");
-const Users = require("../../models/user.model.js");
+const Transactions = require("../../models/transactionsModel.js");
+const Users = require("../../models/usersModel.js");
 
 const costsOperations = (req, res) => {
   const newData = req.body;
@@ -28,10 +28,15 @@ const costsOperations = (req, res) => {
       .required()
   });
 
+  // Return result.
   const result = Joi.validate(newData, schema);
+  // result.error === null -> valid
   if (result.error) {
-    res.json({ error: error });
+    // result.error.httpStatusCode = 422; 
+    // throw new Error(result.error);
+    return res.status(422).json({ error: result.error, message: result.error.message });
   }
+
   if (result.value) {
     const newOperations = new Transactions(result.value);
 
@@ -43,6 +48,10 @@ const costsOperations = (req, res) => {
             $push: { transactions: newOperations._id }
           })
             .then(result => {
+              if(!result) {
+                res.status(400).json({ message: "user not fund", status: 'BAD' })
+              };
+
               if (result)
                 res.json({ status: "OK", transaction: newOperations });
             })

@@ -1,4 +1,4 @@
-const UsersModel = require('../../models/user.model.js');
+const UsersModel = require('../../models/usersModel.js');
 
 const createUser = async (req, res) => {
   const newUserData = req.body;

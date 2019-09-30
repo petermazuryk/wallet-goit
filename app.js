@@ -1,36 +1,49 @@
+require('./core/express-promise');
+require('./lib/getExchenge');
 const express = require('express');
-const cors = require('cors');
-const logger = require('morgan');
-const config = require('./config');
 const app = express();
-
-const mongoose = require('mongoose');
-
-mongoose.connect(
-  config.mongodb_URI,
-  {
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  error => {
-    if (error) console.log(error);
-    console.log('DB connected ....');
-  },
-);
-
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const expressDomain = require('express-domain');
+const config = require('./config');
+const cookieParser = require('cookie-parser');
+const notFound = require('./middleware/not-found');
+const errorHandler = require('./middleware/error-handler');
+const validationErrorHandler = require('./middleware/validation-error-handler');
+const passport = require('./auth');
+const session = require('express-session');
 const PORT = config.PORT;
 
-const apiRoutes = require('./routes/apiRoutes/apiRoutes.js');
+const routes = require('./routes/routes');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(expressDomain());
 
-app.use(cors('*'));
 app.use(logger('dev'));
 
-app.use('/api', apiRoutes);
+app.get('/', express.static('public'));
 
-app.listen(PORT, () => {
-  console.log(`Server success started on ${PORT} port`);
+app.use(bodyParser.json({ limit: '2mb' }));
+app.use(bodyParser.urlencoded({ extended: false, limit: '2mb' }));
+app.use(cookieParser());
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: config.cookieSecret,
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/api', routes);
+app.use('/*', notFound);
+
+app.use(validationErrorHandler);
+app.use(errorHandler);
+
+const server = app.listen(PORT, () => {
+  console.log(`➡️  Wallet app listening on port ${PORT} 🤟`);
 });
+
+app.set('server', server);

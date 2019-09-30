@@ -1,4 +1,4 @@
-const UsersModel = require('../../models/user.model.js');
+const UsersModel = require('../../models/usersModel.js');
 
 const updateUser = async (req, res) => {
   const userId = req.params.userId;
@@ -6,12 +6,10 @@ const updateUser = async (req, res) => {
 
   try {
     const updateUser = await UsersModel.findByIdAndUpdate(userId, { $push: updatedData });
-
     res.json({
       status: "OK",
       user: updateUser
     })
-    
   } catch (error) {
     res.status(400).json({
       status: "BAD",

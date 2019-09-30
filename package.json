@@ -1,59 +1,43 @@
 {
-  "name": "wallet-server-goit",
-  "version": "1.1.0",
+  "name": "goit-wallet-backend",
+  "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon app.js"
+    "start": "node app.js",
+    "develop": "nodemon app.js",
+    "debug": "nodemon --inspect app.js",
+    "prod": "NODE_ENV=production node app.js"
   },
   "repository": {
     "type": "git",
-    "url": " "
+    "url": "git+https://github.com/vbguard/goit-wallet-homework.git"
   },
-  "keywords": [],
-  "author": "petermazuryk <petermazuryk1984@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "autoprefixer": "^9.6.0",
-    "babel-loader": "^8.0.6",
-    "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^3.0.0",
-    "file-loader": "^4.0.0",
-    "friendly-errors-webpack-plugin": "^1.7.0",
-    "gh-pages": "^2.0.1",
-    "handlebars-loader": "^1.7.1",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "img-loader": "^3.0.1",
-    "mini-css-extract-plugin": "^0.7.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "postcss-loader": "^3.0.0",
-    "style-loader": "^0.23.1",
-    "url-loader": "^2.0.1",
-    "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.5",
-    "webpack-dev-server": "^3.7.2",
-    "webpack-merge": "^4.2.1",
-    "webpackbar": "^3.2.0"
+  "author": "Viktor Bulvarenko <viktor.bulvarenko@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vbguard/goit-wallet-homework/issues"
   },
+  "homepage": "https://github.com/vbguard/goit-wallet-homework#readme",
   "dependencies": {
+    "auth": "0.0.9",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "core-js": "^3.1.4",
-    "cors": "^2.8.5",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
-    "fs": "0.0.1-security",
-    "handlebars": "^4.1.2",
-    "joi": "^14.3.1",
-    "mongo": "^0.1.0",
-    "mongodb": "^3.3.0",
+    "express-domain": "^1.0.5",
+    "express-session": "^1.16.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.11",
+    "mysql2": "^1.7.0",
+    "node-cron": "^2.0.3",
+    "passport": "^0.4.0",
+    "passport-linkedin-oauth2": "^2.0.0",
+    "sequelize": "^5.18.1",
+    "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
     "morgan": "^1.9.1",
-    "nodemon": "^1.19.3",
-    "path": "^0.12.7",
-    "router": "^1.3.3"
+    "nodemon": "^1.19.1"
   }
 }
