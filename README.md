@@ -1,1 +1,1 @@
-# wallet-goit
+Training Project GoIT
